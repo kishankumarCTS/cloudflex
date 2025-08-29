@@ -52,3 +52,69 @@
   --color-themeBlack-90: #000000e5;
   --color-themeBlack-100: #000000;
 }
+
+@layer components {
+  .base-font-size {
+    @apply text-[20px];
+  }
+
+  .display-large {
+    @apply text-[57px];
+  }
+
+  .display-medium {
+    @apply text-[45px];
+  }
+
+  .display-small {
+    @apply text-[36px];
+  }
+
+  .headline-large {
+    @apply text-[32px];
+  }
+
+  .headline-medium {
+    @apply text-[28px];
+  }
+
+  .headline-small {
+    @apply text-[34px];
+  }
+
+  .title-large {
+    @apply text-[22px];
+  }
+
+  .title-medium {
+    @apply text-[16px];
+  }
+
+  .title-small {
+    @apply text-[14px];
+  }
+
+  .label-large {
+    @apply text-[14px];
+  }
+
+  .label-medium {
+    @apply text-[12px];
+  }
+
+  .label-small {
+    @apply text-[11px];
+  }
+
+  .body-large {
+    @apply text-[16px];
+  }
+
+  .body-medium {
+    @apply text-[14px];
+  }
+
+  .body-small {
+    @apply text-[12px];
+  }
+}
