@@ -118,3 +118,7 @@
     @apply text-[12px];
   }
 }
+
+body {
+  @apply text-[14px];
+}
