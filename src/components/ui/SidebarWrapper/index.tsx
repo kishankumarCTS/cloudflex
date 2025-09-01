@@ -10,8 +10,10 @@ import { Separator } from "../Separator";
 const SidebarWrapper = () => {
   const [collapsed, setCollapsed] = useState(true);
 
+  const sidebarData = [{ id: 1, title: "" }];
+
   return (
-    <div className="relative">
+    <div className="relative h-screen flex flex-col">
       <div className="p-4 bg-themeBlue-50 flex items-center justify-between">
         {!collapsed && <Image src={logo} alt="logo" />}
         <button
