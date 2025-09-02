@@ -74,71 +74,67 @@
 }
 
 @layer components {
-  .base-font-size {
-    @apply text-[20px];
-  }
-
   .display-large {
-    @apply text-[57px];
+    @apply text-[57px] leading-[64px];
   }
 
   .display-medium {
-    @apply text-[45px];
+    @apply text-[45px] leading-[52px];
   }
 
   .display-small {
-    @apply text-[36px];
+    @apply text-[36px] leading-[44px];
   }
 
   .headline-large {
-    @apply text-[32px];
+    @apply text-[32px] leading-[40px];
   }
 
   .headline-medium {
-    @apply text-[28px];
+    @apply text-[28px] leading-[36px];
   }
 
   .headline-small {
-    @apply text-[34px];
+    @apply text-[24px] leading-[32px];
   }
 
   .title-large {
-    @apply text-[22px];
+    @apply text-[22px] leading-[28px];
   }
 
   .title-medium {
-    @apply text-[16px];
+    @apply text-[16px] leading-[24px];
   }
 
   .title-small {
-    @apply text-[14px];
+    @apply text-[14px] leading-[20px];
   }
 
   .label-large {
-    @apply text-[14px];
+    @apply text-[14px] leading-[20px];
   }
 
   .label-medium {
-    @apply text-[12px];
+    @apply text-[12px] leading-[16px];
   }
 
   .label-small {
-    @apply text-[11px];
+    @apply text-[11px] leading-[16px];
   }
 
   .body-large {
-    @apply text-[16px];
+    @apply text-[16px] leading-[24px];
   }
 
   .body-medium {
-    @apply text-[14px];
+    @apply text-[14px] leading-[20px];
   }
 
   .body-small {
-    @apply text-[12px];
+    @apply text-[12px] leading-[16px];
   }
 }
 
 body {
-  @apply text-[14px] bg-themeBlue-100;
+  @apply text-[14px] bg-themeBlue-100 tracking-normal;
 }
