@@ -14,7 +14,7 @@ const SidebarWrapper = () => {
   const sidebarData = [{ id: 1, title: "" }];
 
   return (
-    <div className="relative h-screen flex flex-col p-3 bg-themeBlue-50">
+    <div className="relative max-w-[310px] h-screen flex flex-col p-3 bg-themeBlue-50 rounded-tr-[16px] rounded-br-[16px] rounded-tl-[0] rounded-bl-[0]">
       <div className="px-4 bg-themeBlue-50 flex items-center justify-between">
         {!collapsed && <Image src={logo} alt="logo" />}
         <button
