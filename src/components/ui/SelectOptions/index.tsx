@@ -22,11 +22,17 @@ const SelectOptions = ({ options, defaultValue, className }: Props) => {
       <Select defaultValue={defaultValue ?? options?.[0].label}>
         {/* TODO: this had bg theme blue 50 but it is showing blue color instead of white that is in design */}
         <SelectTrigger className="w-[100%] py-1.5 px-3 title-small text-[#0E1726] text-opacity-80 bg-white rounded-[100px] border-none shadow-md truncate">
-          <SelectValue placeholder="Region" />
+          <div className="min-w-0 truncate">
+            <SelectValue placeholder="Region" />
+          </div>
         </SelectTrigger>
-        <SelectContent className="w-full title-small text-[#0E1726] text-opacity-80 truncate bg-themeWhite-900 border-none shadow-md">
+        <SelectContent className="w-[var(--radix-select-trigger-width)] title-small text-[#0E1726] text-opacity-80 bg-themeWhite-900 border-none shadow-md">
           {options.map((item) => (
-            <SelectItem key={item.id} value={item.label} className="text-wrap">
+            <SelectItem
+              key={item.id}
+              value={item.label}
+              className="text-wrap break-all"
+            >
               {item.label}
             </SelectItem>
           ))}
