@@ -1,7 +1,5 @@
 import Navbar from "@/components/ui/Navbar";
 import SidebarWrapper from "@/components/ui/SidebarWrapper";
-import Sidebar from "@/components/ui/SidebarWrapper/Sidebar";
-import SidebarItem from "@/components/ui/SidebarWrapper/SidebarItem";
 import React from "react";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
