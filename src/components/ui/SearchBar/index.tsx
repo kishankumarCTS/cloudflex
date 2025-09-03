@@ -18,7 +18,7 @@ export default function SearchBar({}) {
           value={state}
           onChange={handleChange}
           placeholder="Search"
-          className="w-full py-2 px-[5px] pl-4 pr-11 bg-white rounded-[10px] shadow-md outline-none body-large placeholder:body-large text-[#616161] placeholder:text-[#616161] truncate"
+          className="w-full py-2 px-[5px] pl-4 pr-11 bg-white rounded-[10px] outline-none body-large placeholder:body-large text-[#616161] placeholder:text-[#616161] shadow-[0_1.281px_2.561px_0_rgba(0,0,0,0.14),0_0_3.842px_0_rgba(0,0,0,0.12)] truncate"
         />
         <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
           <FaSearch
