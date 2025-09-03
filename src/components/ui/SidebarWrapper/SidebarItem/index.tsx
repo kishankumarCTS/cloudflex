@@ -31,7 +31,9 @@ function SidebarItem({
         collapsed ? "p-0" : "p-4 pr-6"
       } leading-5 tracking-normal rounded-[100px] hover:${
         collapsed ? "" : "bg-themeBlue-300"
-      } w-full cursor-pointer ${isActive && "bg-themeBlue-100"}`}
+      } w-full cursor-pointer ${
+        isActive && "bg-themeBlue-100"
+      } hover:text-blue-400`}
       onClick={() => setIsDropdownOpen((prev) => !prev)}
     >
       {!!iconSrc ? (
