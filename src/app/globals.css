@@ -63,6 +63,11 @@
   --color-themeBlack-90: #000000e5;
   --color-themeBlack-100: #000000;
 
+  --color-themeGray-100: var(--color-themeGray-100);
+
+  --color-themeGreen-100: var(--color-themeGreen-100);
+  --color-themeGreen-500: var(--color-themeGreen-500);
+
   --sidebar: hsl(0 0% 98%);
   --sidebar-foreground: hsl(240 5.3% 26.1%);
   --sidebar-primary: hsl(240 5.9% 10%);
