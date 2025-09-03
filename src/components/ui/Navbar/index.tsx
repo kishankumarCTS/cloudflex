@@ -21,7 +21,7 @@ const Navbar = () => {
           ) : (
             <Image
               src={BellWithNotification}
-              alt="Bell icon"
+              alt="Bell icon with notification"
               width={16}
               height={16}
               className="block object-contain"
