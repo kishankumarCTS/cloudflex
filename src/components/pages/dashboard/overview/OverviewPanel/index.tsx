@@ -11,70 +11,31 @@ import {
   ReferenceLine,
   TooltipProps,
 } from "recharts";
-
-interface DataPoint {
-  date: string;
-  value: number;
-  compare: number;
-  fullDate: string;
-  lastPeriod: number;
-}
-
-interface Action {
-  title: string;
-  count: string;
-  icon: string;
-}
-
-interface TooltipData {
-  date: string;
-  value: number;
-  lastPeriod: number;
-}
-
-interface CustomDotProps {
-  cx?: number;
-  cy?: number;
-  payload?: DataPoint;
-}
-
-interface ChartMouseEvent {
-  activeLabel?: string;
-  activePayload?: Array<{
-    payload: DataPoint;
-  }>;
-}
-
-const data: DataPoint[] = [
-  { date: "2 Jun", value: 350, compare: 180, fullDate: "2 June 2025", lastPeriod: 360 },
-  { date: "5 Jun", value: 454, compare: 185, fullDate: "5 June 2025", lastPeriod: 365 },
-  { date: "9 Jun", value: 320, compare: 190, fullDate: "9 June 2025", lastPeriod: 370 },
-  { date: "13 Jun", value: 320, compare: 185, fullDate: "13 June 2025", lastPeriod: 365 },
-  { date: "15 Jun", value: 500.32, compare: 92.21, fullDate: "15 June 2025", lastPeriod: 92.21 },
-  { date: "21 Jun", value: 550, compare: 90, fullDate: "21 June 2025", lastPeriod: 360 },
-  { date: "25 Jun", value: 400, compare: 200, fullDate: "25 June 2025", lastPeriod: 370 },
-  { date: "28 Jun", value: 520, compare: 255, fullDate: "28 June 2025", lastPeriod: 375 },
-];
-
-const actions: Action[] = [
-  { title: "Compute Engine", count: "12", icon: "/images/overview/compute-engine.svg" },
-  { title: "Volumes", count: "12", icon: "/images/overview/volumes.svg" },
-  { title: "Storage", count: "12", icon: "/images/overview/storage.svg" },
-  { title: "Snapshots", count: "12", icon: "/images/overview/snapshots.svg" },
-  { title: "Backups", count: "12", icon: "/images/overview/backups.svg" },
-  { title: "Floating IPs", count: "12", icon: "/images/overview/floating-ips.svg" },
-  { title: "VPC Networks", count: "12", icon: "/images/overview/vpc-networks.svg" },
-  { title: "Routers", count: "12", icon: "/images/overview/routers.svg" },
-  { title: "Security Groups", count: "12", icon: "/images/overview/security-groups.svg" },
-];
+// Import types and constants
+import {
+  DataPoint,
+  TooltipData,
+  CustomDotProps,
+  ChartMouseEvent,
+} from './types';
+import {
+  CHART_DATA,
+  QUICK_ACTIONS,
+  METRIC_CARDS,
+  DEFAULT_ACTIVE_POINT,
+  CHART_CONFIG,
+  COLORS,
+  INSTANCE_OPTIONS,
+} from './constants';
 
 export default function OverviewPanel() {
-  const [activePoint, setActivePoint] = useState<string>("15 Jun");
+  const [activePoint, setActivePoint] = useState<string>(DEFAULT_ACTIVE_POINT);
   const [tooltipData, setTooltipData] = useState<TooltipData | null>(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [selectedInstance, setSelectedInstance] = useState(INSTANCE_OPTIONS[0]);
 
-  
   useEffect(() => {
-    const defaultData = data.find(d => d.date === "15 Jun");
+    const defaultData = CHART_DATA.find(d => d.date === DEFAULT_ACTIVE_POINT);
     if (defaultData) {
       setTooltipData({
         date: defaultData.fullDate,
@@ -98,10 +59,14 @@ export default function OverviewPanel() {
     }
   };
 
-  const CustomTooltip = ({ active, payload }: TooltipProps<number, string>) => {
+  const handleInstanceSelect = (instance: typeof INSTANCE_OPTIONS[0]) => {
+    setSelectedInstance(instance);
+    setIsDropdownOpen(false);
+  };
+
+  const CustomTooltip = ({ active, payload }: { active?: boolean; payload?: Array<{ payload: DataPoint }> }) => {
     if (active && payload && payload.length) {
       const current = payload[0].payload as DataPoint;
-
       return (
         <div className="bg-slate-700 text-white p-3 rounded-lg shadow-lg border-0">
           <p className="text-xs text-gray-300 mb-1">{current.fullDate}</p>
@@ -127,10 +92,17 @@ export default function OverviewPanel() {
     const isActive = payload.date === activePoint;
     if (isActive) {
       return (
-        <Dot cx={cx} cy={cy} r={5} fill="#2563EB" stroke="#fff" strokeWidth={2} />
+        <Dot 
+          cx={cx} 
+          cy={cy} 
+          r={5} 
+          fill={COLORS.primary} 
+          stroke={COLORS.white} 
+          strokeWidth={2} 
+        />
       );
     }
-    return <Dot cx={cx} cy={cy} r={3} fill="#2563EB" />;
+    return <Dot cx={cx} cy={cy} r={3} fill={COLORS.primary} />;
   };
 
   const CustomGreyDot = ({ cx, cy, payload }: CustomDotProps) => {
@@ -141,10 +113,17 @@ export default function OverviewPanel() {
     const isActive = payload.date === activePoint;
     if (isActive) {
       return (
-        <Dot cx={cx} cy={cy} r={4} fill="#9CA3AF" stroke="#fff" strokeWidth={2} />
+        <Dot 
+          cx={cx} 
+          cy={cy} 
+          r={4} 
+          fill={COLORS.secondary} 
+          stroke={COLORS.white} 
+          strokeWidth={2} 
+        />
       );
     }
-    return <Dot cx={cx} cy={cy} r={3} fill="#9CA3AF" />;
+    return <Dot cx={cx} cy={cy} r={3} fill={COLORS.secondary} />;
   };
 
   return (
@@ -172,7 +151,6 @@ export default function OverviewPanel() {
               +
             </button>
           </div>
-
           <div className="bg-white p-5 rounded-2xl shadow w-1/2 flex items-center gap-4">
             <div className="w-16 h-16 bg-gray-100 rounded-xl flex items-center justify-center">
               <Image
@@ -188,11 +166,10 @@ export default function OverviewPanel() {
             </div>
           </div>
         </div>
-
         <div className="bg-white p-4 rounded-2xl shadow">
           <h3 className="text-base font-semibold mb-3">Quick Actions</h3>
           <div className="grid grid-cols-2 gap-3">
-            {actions.map((action, i) => (
+            {QUICK_ACTIONS.map((action, i) => (
               <button
                 key={i}
                 className="flex items-center justify-between h-[64px] px-3 rounded-lg border border-[#BFD9FF]"
@@ -220,28 +197,71 @@ export default function OverviewPanel() {
           </div>
         </div>
       </div>
-
       <div className="flex-[5]">
         <div className="p-6 rounded-2xl shadow h-full flex flex-col text-white"
           style={{ background: "linear-gradient(218.08deg, #93C5FD -1.54%, #1D4ED8 89.24%)" }}>
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-lg font-semibold text-white">Monitoring</h3>
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-1 text-sm text-black">
-                <Image src="/images/overview/settings.svg" alt="Settings" width={16} height={16} />
-                <span>My Test Instance</span>
-                <Image src="/images/overview/arrow-down.svg" alt="▼" width={12} height={12} />
+              <div className="relative">
+                <button
+                  onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                  className="flex items-center gap-2 bg-white rounded-lg px-3 py-1 text-sm text-black hover:bg-gray-50 transition-colors"
+                >
+                  <Image src="/images/overview/settings.svg" alt="Settings" width={16} height={16} />
+                  <div className="flex items-center gap-2">
+                    <div 
+                      className="w-2 h-2 rounded-full" 
+                      style={{ backgroundColor: selectedInstance.color }}
+                    ></div>
+                    <span className="max-w-[120px] truncate">{selectedInstance.name}</span>
+                  </div>
+                  <Image 
+                    src="/images/overview/arrow-down.svg" 
+                    alt="▼" 
+                    width={12} 
+                    height={12}
+                    className={`transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+                
+                {isDropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-white rounded-lg shadow-lg border z-50">
+                    <div className="py-1">
+                      {INSTANCE_OPTIONS.map((instance, index) => (
+                        <button
+                          key={index}
+                          onClick={() => handleInstanceSelect(instance)}
+                          className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                        >
+                          <div 
+                            className="w-3 h-3 rounded-full flex-shrink-0" 
+                            style={{ backgroundColor: instance.color }}
+                          ></div>
+                          <div className="flex-1 min-w-0">
+                            <div className="text-sm font-medium text-gray-900 truncate">
+                              {instance.name}
+                            </div>
+                            <div className="text-xs text-gray-500 truncate">
+                              {instance.status} • {instance.region}
+                            </div>
+                          </div>
+                          {selectedInstance.name === instance.name && (
+                            <div className="w-4 h-4 text-blue-600">
+                              ✓
+                            </div>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
               <Image src="/images/overview/expand.svg" alt="Expand" width={24} height={24} />
             </div>
           </div>
-
           <div className="flex gap-3 mb-4">
-            {[
-              { label: "Current Billing", value: "$124.32" },
-              { label: "Monthly Consumption", value: "$901.77" },
-              { label: "Monthly Forecast", value: "$901.77" },
-            ].map((item, i) => (
+            {METRIC_CARDS.map((item, i) => (
               <div
                 key={i}
                 className="flex-1 bg-white rounded-xl p-3 text-center text-gray-800"
@@ -253,23 +273,22 @@ export default function OverviewPanel() {
               </div>
             ))}
           </div>
-
           <div className="bg-white rounded-xl p-4 relative">
             <LineChart 
-              data={data} 
-              width={400} 
-              height={200}
+              data={CHART_DATA} 
+              width={CHART_CONFIG.width} 
+              height={CHART_CONFIG.height}
               onMouseMove={handleMouseMove}
             >
               <XAxis 
                 dataKey="date" 
-                tick={{ fontSize: 11, fill: "#6B7280" }}
+                tick={{ fontSize: 11, fill: COLORS.gray[500] }}
                 axisLine={false}
                 tickLine={false}
               />
               <YAxis 
-                tick={{ fontSize: 10, fill: "#6B7280" }} 
-                domain={[0, 600]}
+                tick={{ fontSize: 10, fill: COLORS.gray[500] }} 
+                domain={CHART_CONFIG.yAxisDomain}
                 axisLine={false}
                 tickLine={false}
               />
@@ -285,21 +304,25 @@ export default function OverviewPanel() {
               <Line
                 type="linear"
                 dataKey="value"
-                stroke="#2563EB"
-                strokeWidth={3}
+                stroke={CHART_CONFIG.mainLineColor}
+                strokeWidth={CHART_CONFIG.mainLineStrokeWidth}
                 dot={<CustomMainDot />}
-                activeDot={{ r: 6, fill: "#2563EB", stroke: "#fff", strokeWidth: 2 }}
+                activeDot={{ 
+                  r: 6, 
+                  fill: CHART_CONFIG.mainLineColor, 
+                  stroke: COLORS.white, 
+                  strokeWidth: 2 
+                }}
               />
               <Line
                 type="linear"
                 dataKey="compare"
-                stroke="#9CA3AF"
-                strokeWidth={2}
+                stroke={CHART_CONFIG.compareLineColor}
+                strokeWidth={CHART_CONFIG.compareLineStrokeWidth}
                 dot={<CustomGreyDot />}
               />
             </LineChart>
           </div>
-
           <div className="mt-4 bg-white rounded-xl overflow-hidden">
             {Array.from({ length: 7 }).map((_, i) => (
               <div
