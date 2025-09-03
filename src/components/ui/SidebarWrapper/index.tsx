@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Sidebar from "./Sidebar";
 import Image from "next/image";
@@ -8,13 +8,14 @@ import logo from "@/assets/icons/logo.svg";
 import { Separator } from "../Separator";
 import UserDetailsWrapper from "./UserDetailsWrapper";
 
-const SidebarWrapper = () => {
-  const [collapsed, setCollapsed] = useState(true);
+type Props = {
+  collapsed: boolean;
+  setCollapsed: Dispatch<SetStateAction<boolean>>;
+};
 
-  const sidebarData = [{ id: 1, title: "" }];
-
+const SidebarWrapper = ({ collapsed, setCollapsed }: Props) => {
   return (
-    <div className="relative max-w-[310px] h-screen flex flex-col p-3 bg-themeBlue-50 rounded-tr-[16px] rounded-br-[16px] rounded-tl-[0] rounded-bl-[0]">
+    <div className="fixed max-w-[310px] h-screen flex flex-col p-3 bg-themeBlue-50 rounded-tr-[16px] rounded-br-[16px] rounded-tl-[0] rounded-bl-[0]">
       <div className="px-4 bg-themeBlue-50 flex items-center justify-between">
         {!collapsed && <Image src={logo} alt="logo" />}
         <button
@@ -30,7 +31,7 @@ const SidebarWrapper = () => {
       <div className="my-2 px-4 py-2 bg-themeBlue-50">
         <Separator />
       </div>
-      <UserDetailsWrapper />
+      <UserDetailsWrapper collapsed={collapsed} />
       <Sidebar collapsed={collapsed} />
     </div>
   );
