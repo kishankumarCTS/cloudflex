@@ -1,15 +1,26 @@
+"use client";
 import Navbar from "@/components/ui/Navbar";
 import SidebarWrapper from "@/components/ui/SidebarWrapper";
-import React from "react";
+import React, { useState } from "react";
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
+  const [collapsed, setCollapsed] = useState(true);
+
   return (
     <div style={{ display: "flex", minHeight: "100vh" }}>
       <aside>
-        <SidebarWrapper />
+        <SidebarWrapper collapsed={collapsed} setCollapsed={setCollapsed} />
       </aside>
 
-      <div style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
+      <div
+        style={{
+          flexGrow: 1,
+          display: "flex",
+          flexDirection: "column",
+          marginLeft: collapsed ? "88px" : "310px",
+        }}
+        className="transition-all duration-300"
+      >
         <header>
           <Navbar />
         </header>
@@ -19,4 +30,4 @@ const layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export default layout;
+export default Layout;

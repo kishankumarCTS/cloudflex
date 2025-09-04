@@ -27,7 +27,7 @@ function OptionButton({
         <span className="title-large text-themeBlack-100">{title}</span>
       </div>
       {isSelected && (
-        <div className="py-2 px-1.5 bg-themeBlue-300 rounded-[50px]">
+        <div className="py-2 px-1.5 mr-4 bg-themeBlue-300 rounded-[50px]">
           <Image
             src={Tick}
             alt="tick icon"
