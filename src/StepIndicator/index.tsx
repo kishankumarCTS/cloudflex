@@ -1,6 +1,6 @@
 import React from "react";
 import { FaCheck } from "react-icons/fa6";
-import { IoMdArrowDropright } from "react-icons/io";
+import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 
 type StepIndicatorProps = {
   title: string;
@@ -20,8 +20,8 @@ const StepIndicator = ({
       <div className="flex items-center gap-2">
         <div
           className={`w-12 aspect-square text-2xl flex items-center justify-center rounded-full ${
-            isCompleted && !isActive && "text-themeGreen-500 bg-themeGreen-100"
-          }   ${isActive && "text-themeWhite-900 bg-themeBlue-500"} ${
+            (isActive || isCompleted) && "text-themeWhite-900 bg-themeBlue-500"
+          } ${
             isDisabled && !isActive && "text-themeBlack-50 bg-themeGray-100"
           }`}
         >
@@ -30,7 +30,7 @@ const StepIndicator = ({
         <div className="text-themeBlack-100 title-large">{title}</div>
       </div>
       <div className="text-3xl">
-        <IoMdArrowDropright />
+        {isActive ? <IoMdArrowDropdown /> : <IoMdArrowDropright />}
       </div>
     </div>
   );

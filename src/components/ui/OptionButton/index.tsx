@@ -6,6 +6,7 @@ type Props = {
   title: string;
   isSelected: boolean;
   className?: string;
+  onClick?: () => void;
 };
 
 function OptionButton({
@@ -13,14 +14,17 @@ function OptionButton({
   title,
   isSelected = false,
   className,
+  onClick,
 }: Props) {
   return (
     // TODO: change hex value
     <div
-      className={`flex justify-between items-center gap-3 p-3 rounded-[20px] bg-themeBlue-50 ${
-        isSelected &&
-        "border-2 border-[#2A70F9] shadow-[0_0_10px_0_rgba(0,0,0,0.15)]"
+      className={`flex justify-between items-center gap-3 p-3 rounded-[20px] bg-themeBlue-50 w-full border-2 ${
+        isSelected
+          ? "border-themeBlue-500 shadow-[0_0_10px_0_rgba(0,0,0,0.15)]"
+          : "border-themeBlue-50"
       } ${className}`}
+      onClick={onClick}
     >
       <div className="flex justify-between items-center gap-3">
         <Image src={iconSrc} alt={`${title} - icon`} width={78} height={78} />
