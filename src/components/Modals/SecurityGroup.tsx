@@ -1,19 +1,22 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { CreateSecurityGroupProps, SecurityGroupRule } from '@/components/pages//SecurityGroup/types'; // adjust path if needed
-import { Modal } from '@/components/ui/Modal';
+import { useState } from "react";
+import {
+  CreateSecurityGroupProps,
+  SecurityGroupRule,
+} from "@/components/pages//SecurityGroup/types"; // adjust path if needed
+import { Modal } from "@/components/ui/Modal";
 
 export default function SecurityGroupModal({
   isOpen,
   onClose,
   onSubmit,
 }: CreateSecurityGroupProps) {
-  const [securityGroupName, setSecurityGroupName] = useState('');
-  const [description, setDescription] = useState('');
+  const [securityGroupName, setSecurityGroupName] = useState("");
+  const [description, setDescription] = useState("");
   const [outboundRules, setOutboundRules] = useState<SecurityGroupRule[]>([
-    { id: '1', etherType: '', protocol: '', portRange: '', remoteIpPrefix: '' },
-    { id: '2', etherType: '', protocol: '', portRange: '', remoteIpPrefix: '' },
+    { id: "1", etherType: "", protocol: "", portRange: "", remoteIpPrefix: "" },
+    { id: "2", etherType: "", protocol: "", portRange: "", remoteIpPrefix: "" },
   ]);
 
   const handleSubmit = () => {
@@ -31,9 +34,7 @@ export default function SecurityGroupModal({
     value: string
   ) => {
     setOutboundRules((prev) =>
-      prev.map((rule) =>
-        rule.id === id ? { ...rule, [field]: value } : rule
-      )
+      prev.map((rule) => (rule.id === id ? { ...rule, [field]: value } : rule))
     );
   };
 
@@ -43,12 +44,11 @@ export default function SecurityGroupModal({
       onClose={onClose}
       title="Create Security Group"
       footerButtons={[
-        { variant: 'secondary', children: 'Close', onClick: onClose },
-        { variant: 'primary', children: 'Download', onClick: handleSubmit },
+        { variant: "secondary", children: "Close", onClick: onClose },
+        { variant: "primary", children: "Download", onClick: handleSubmit },
       ]}
     >
       <div className="space-y-6">
-        {/* Name + Description */}
         <div className="grid grid-cols-2 gap-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -76,7 +76,6 @@ export default function SecurityGroupModal({
           </div>
         </div>
 
-        {/* Inbound Rules */}
         <div>
           <h3 className="text-sm font-medium text-gray-700 mb-2">
             Inbound Rules
@@ -86,7 +85,6 @@ export default function SecurityGroupModal({
           </p>
         </div>
 
-        {/* Outbound Rules */}
         <div>
           <h3 className="text-sm font-medium text-gray-700 mb-4">
             Outbound Rules
@@ -98,16 +96,16 @@ export default function SecurityGroupModal({
                   type="text"
                   value={rule.etherType}
                   onChange={(e) =>
-                    updateOutboundRule(rule.id, 'etherType', e.target.value)
+                    updateOutboundRule(rule.id, "etherType", e.target.value)
                   }
-                  placeholder={index === 0 ? 'IPv4' : 'IPv6'}
+                  placeholder={index === 0 ? "IPv4" : "IPv6"}
                   className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-800"
                 />
                 <input
                   type="text"
                   value={rule.protocol}
                   onChange={(e) =>
-                    updateOutboundRule(rule.id, 'protocol', e.target.value)
+                    updateOutboundRule(rule.id, "protocol", e.target.value)
                   }
                   placeholder="Any"
                   className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-800"
@@ -116,7 +114,7 @@ export default function SecurityGroupModal({
                   type="text"
                   value={rule.portRange}
                   onChange={(e) =>
-                    updateOutboundRule(rule.id, 'portRange', e.target.value)
+                    updateOutboundRule(rule.id, "portRange", e.target.value)
                   }
                   placeholder="Any"
                   className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-800"
@@ -125,9 +123,13 @@ export default function SecurityGroupModal({
                   type="text"
                   value={rule.remoteIpPrefix}
                   onChange={(e) =>
-                    updateOutboundRule(rule.id, 'remoteIpPrefix', e.target.value)
+                    updateOutboundRule(
+                      rule.id,
+                      "remoteIpPrefix",
+                      e.target.value
+                    )
                   }
-                  placeholder={index === 0 ? '0.0.0.0/0' : '::/0'}
+                  placeholder={index === 0 ? "0.0.0.0/0" : "::/0"}
                   className="w-full px-4 py-3 border border-gray-200 rounded-lg text-sm text-gray-900 placeholder-gray-400 focus:outline-none focus:border-gray-800"
                 />
               </div>
