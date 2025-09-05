@@ -36,6 +36,8 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+
+  --color-overlay-background: var(--color-overlay-background);
 }
 
 :root {
@@ -76,6 +78,8 @@
   --sidebar-accent-foreground: hsl(240 5.9% 10%);
   --sidebar-border: hsl(220 13% 91%);
   --sidebar-ring: hsl(217.2 91.2% 59.8%);
+
+  --color-overlay-background: #464646;
 }
 
 @layer components {
