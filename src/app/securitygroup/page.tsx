@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CreateSecurityGroup from "@/components/pages/SecurityGroup";
+import SecurityGroupModal from "@/components/Modals/SecurityGroup";
 import { SecurityGroupFormData } from "@/components/pages/SecurityGroup/types";
 
 export default function SecurityGroupPage() {
@@ -21,7 +21,7 @@ export default function SecurityGroupPage() {
         Create Security Group
       </button>
 
-      <CreateSecurityGroup
+      <SecurityGroupModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleSubmit}
